@@ -20,7 +20,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.android.tools.build:gradle:7.0.3")
+    implementation("com.android.tools.build:gradle:7.1.3")
     compileOnly("commons-io:commons-io:2.6")
     compileOnly("commons-codec:commons-codec:1.15")
     compileOnly("org.ow2.asm:asm-commons:9.2")
