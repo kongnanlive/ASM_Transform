@@ -15,7 +15,7 @@ class OkHttpChuckerTransform : BaseTransform() {
         var visitor: ClassVisitor = writer
 //        visitor = InitializerAdapter(visitor)
 //        visitor = HttpURLAdapter(visitor)
-//        visitor = OkHttpAdapter(visitor)
+        visitor = OkHttpAdapter(visitor)
         val cr = ClassReader(byteArray)
         cr.accept(visitor, 0)
         return writer.toByteArray()
