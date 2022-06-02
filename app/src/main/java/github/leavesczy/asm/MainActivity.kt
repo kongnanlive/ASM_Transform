@@ -6,8 +6,10 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import github.leavesczy.asm.doubleClick.ViewDoubleClickCheckActivity
 import github.leavesczy.asm.legalBitmap.LegalBitmapActivity
+import github.leavesczy.asm.okHttp.OkHttpActivity
 import github.leavesczy.asm.optimizedThread.OptimizedThreadActivity
 import github.leavesczy.asm.privacySentry.PrivacySentryActivity
+import okio.Okio
 
 /**
  * @Author: leavesCZY
@@ -31,6 +33,9 @@ class MainActivity : AppCompatActivity() {
         }
         findViewById<TextView>(R.id.tvLegalBitmap).setOnClickListener {
             startActivity(Intent(this, LegalBitmapActivity::class.java))
+        }
+        findViewById<TextView>(R.id.tvOkHttp).setOnClickListener {
+            startActivity(Intent(this, OkHttpActivity::class.java))
         }
     }
 

@@ -36,4 +36,12 @@
         android:text="大图检测"
         android:textAllCaps="false" />
 
+    <Button
+        android:id="@+id/tvOkHttp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="OkHttp抓包"
+        android:textAllCaps="false" />
+
 </LinearLayout>
