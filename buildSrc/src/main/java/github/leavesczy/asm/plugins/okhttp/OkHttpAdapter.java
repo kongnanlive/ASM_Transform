@@ -25,12 +25,7 @@ import org.objectweb.asm.Opcodes;
  */
 final class OkHttpAdapter extends ClassVisitor implements Opcodes {
 
-    private static final String OKHTTP2_CLIENT_CLASS = "com/squareup/okhttp/OkHttpClient";
-    private static final String OKHTTP2_WRAPPER =
-            "com/android/tools/profiler/support/network/okhttp/OkHttp2Wrapper";
     private static final String OKHTTP3_BUILDER_CLASS = "okhttp3/OkHttpClient$Builder";
-    private static final String OKHTTP3_WRAPPER =
-            "com/android/tools/profiler/support/network/okhttp/OkHttp3Wrapper";
 
     OkHttpAdapter(ClassVisitor classVisitor) {
         super(ASM6, classVisitor);
@@ -46,36 +41,35 @@ final class OkHttpAdapter extends ClassVisitor implements Opcodes {
     private static final class MethodAdapter extends MethodVisitor implements Opcodes {
 
         public MethodAdapter(MethodVisitor mv) {
-            super(ASM5, mv);
+            super(ASM6, mv);
         }
 
         @Override
         public void visitMethodInsn(
                 int opcode, String owner, String name, String desc, boolean itf) {
+            super.visitMethodInsn(opcode, owner, name, desc, itf);
             if (owner.equals(OKHTTP3_BUILDER_CLASS) && isConstructor(opcode, name, desc) && !itf) {
-                super.visitMethodInsn(opcode, owner, name, desc, itf);
-                super.visitInsn(DUP);
-                invoke(OKHTTP3_WRAPPER, "addInterceptorToBuilder", "(Ljava/lang/Object;)V");
-            } else if (owner.equals(OKHTTP2_CLIENT_CLASS)
-                    && isConstructor(opcode, name, desc)
-                    && !itf) {
-                super.visitMethodInsn(opcode, owner, name, desc, itf);
-                super.visitInsn(DUP);
-                invoke(OKHTTP2_WRAPPER, "addInterceptorToClient", "(Ljava/lang/Object;)V");
-            } else {
-                super.visitMethodInsn(opcode, owner, name, desc, itf);
+//                super.visitMethodInsn(opcode, owner, name, desc, itf);
+//                super.visitInsn(DUP);
+//                super.visitMethodInsn(INVOKESTATIC, OkHttpAdapter.OKHTTP3_WRAPPER,
+//                        "addInterceptorToBuilder", "(Ljava/lang/Object;)V", false);
+
+                mv.visitVarInsn(Opcodes.ALOAD, 0);
+                mv.visitMethodInsn(Opcodes.INVOKESTATIC, "github/leavesczy/asm/okHttp/OkHttp3Wrapper",
+                        "addInterceptorToBuilder", "(Ljava/lang/Object;)V", false);
+//                mv.visitVarInsn(Opcodes.ALOAD, 0);
+
+
+//                mv.visitMethodInsn(Opcodes.INVOKESTATIC, "com/example/demo/network/plugin/OkHttpHook",
+//                        "getInstance", "()Lcom/example/demo/network/plugin/OkHttpHook;", false);
+//                mv.visitVarInsn(Opcodes.ALOAD, 0);
+                //mv.visitTypeInsn(Opcodes.CHECKCAST, "okhttp3/OkHttpClient");
+//                mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "com/example/demo/network/plugin/OkHttpHook", "addInterceptor", "(Lokhttp3/OkHttpClient;)V", false);
             }
         }
 
         private static boolean isConstructor(int opcode, String name, String desc) {
             return opcode == INVOKESPECIAL && name.equals("<init>") && desc.equals("()V");
-        }
-
-        /**
-         * Invokes a static method on our wrapper class.
-         */
-        private void invoke(String wrapper, String method, String desc) {
-            super.visitMethodInsn(INVOKESTATIC, wrapper, method, desc, false);
         }
     }
 }

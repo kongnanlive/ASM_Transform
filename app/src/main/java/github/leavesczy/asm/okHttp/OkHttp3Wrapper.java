@@ -15,17 +15,13 @@
  * limitations under the License.
  */
 
-package com.android.tools.profiler.support.network.okhttp;
+package github.leavesczy.asm.okHttp;
 
 @SuppressWarnings("unused") // This class and all methods referenced via instrumentation.
 public final class OkHttp3Wrapper {
 
     public static void addInterceptorToBuilder(Object builder) {
         try {
-//            setOkHttpClassLoader(builder);
-//            Class<?> interceptorClass =
-//                    myOkHttp3ClassLoader.get().loadClass(OKHTTP3_INTERCEPTOR_CLASS_NAME);
-//            interceptorClass.getMethod("addToBuilder", Object.class).invoke(null, builder);
             OkHttp3Interceptor.addToBuilder(builder);
         } catch (Exception ex) {
             StudioLog.e("Could not add an OkHttp3 profiler interceptor during OkHttpClient construction", ex);
