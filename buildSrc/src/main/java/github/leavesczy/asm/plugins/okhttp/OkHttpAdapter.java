@@ -33,7 +33,7 @@ final class OkHttpAdapter extends ClassVisitor implements Opcodes {
             "com/android/tools/profiler/support/network/okhttp/OkHttp3Wrapper";
 
     OkHttpAdapter(ClassVisitor classVisitor) {
-        super(ASM5, classVisitor);
+        super(ASM6, classVisitor);
     }
 
     @Override

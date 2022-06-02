@@ -9,11 +9,13 @@ import github.leavesczy.asm.plugins.doubleClick.DoubleClickPlugin
 import github.leavesczy.asm.plugins.legalBitmap.LegalBitmapPlugin
 import github.leavesczy.asm.plugins.optimizedThread.OptimizedThreadPlugin
 import github.leavesczy.asm.plugins.privacySentry.PrivacySentryPlugin
+import github.leavesczy.asm.plugins.okhttp.OkHttpChuckerPlugin
 
 apply plugin: DoubleClickPlugin
 apply plugin: OptimizedThreadPlugin
 apply plugin: PrivacySentryPlugin
 apply plugin: LegalBitmapPlugin
+apply plugin: OkHttpChuckerPlugin
 
 def keyAliasExt = "leavesCZY"
 def keyPasswordExt = "123456"
@@ -84,4 +86,5 @@ dependencies {
     kapt "com.jakewharton:butterknife-compiler:$butter_knife_version"
     implementation 'commons-io:commons-io:2.6'
     implementation project(path: ':doubleClick')
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
 }
